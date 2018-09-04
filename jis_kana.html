@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="keywords" content="HogekaFUGAYAMA,ふが山ほげ香,半角カナ,全角カナ" />
+    <meta name="description" content="半角カナを全角カナに置換する" />
+    <title>半角カナを全角カナに置換する</title>
+    <link rel="stylesheet" href="css/global.css" />
+  </head>
+  <body class="bg-info">
+    <!-- ,,, header begin ,,, -->
+    <header>
+      <h1>半角カナを全角カナに置換する</h1>
+      <nav>
+        <ul id="breadcrumb">
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="index.html" itemprop="url">
+              <span itemprop="title">index</span>
+            </a>
+          </li>
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="jis_kana.html" itemprop="url">
+              <span itemprop="title">半角カナを全角カナに置換する</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- ''' header end ''' -->
+
+    <!-- ,,, main begin ,,, -->
+    <main>
+      <section>
+        <h2>半角カナを含むテキスト</h2>
+        <textarea id="han"></textarea>
+      </section>
+      <button id="btn">変換</button>
+      <section>
+        <h2>全角カナに変換したテキスト</h2>
+        <textarea id="zen"></textarea>
+      </section>
+    </main>
+    <!-- ''' main end ''' -->
+
+    <!-- ,,, footer begin ,,, -->
+    <footer>
+    </footer>
+    <!-- ''' footer end ''' -->
+
+    <!-- ,,, js begin ,,, -->
+    <script>
+    // 半角カナと全角カナの対応マップ
+    var KANA_MAP = {
+      "ｳﾞ": "ヴ",
+      "ｶﾞ": "ガ", "ｷﾞ": "ギ", "ｸﾞ": "グ", "ｹﾞ": "ゲ", "ｺﾞ": "ゴ",
+      "ｻﾞ": "ザ", "ｼﾞ": "ジ", "ｽﾞ": "ズ", "ｾﾞ": "ゼ", "ｿﾞ": "ゾ",
+      "ﾀﾞ": "ダ", "ﾁﾞ": "ヂ", "ﾂﾞ": "ヅ", "ﾃﾞ": "デ", "ﾄﾞ": "ド",
+      "ﾊﾞ": "バ", "ﾋﾞ": "ビ", "ﾌﾞ": "ブ", "ﾍﾞ": "ベ", "ﾎﾞ": "ボ",
+      "ﾊﾟ": "パ", "ﾋﾟ": "ピ", "ﾌﾟ": "プ", "ﾍﾟ": "ペ", "ﾎﾟ": "ポ",
+      "｡": "。", "｢": "「", "｣": "」", "､": "､", "･": "･", "ｦ": "ヲ", "ｧ": "ァ", "ｨ": "ィ", "ｩ": "ゥ", "ｪ": "ェ", "ｫ": "ォ", "ｬ": "ャ", "ｭ": "ュ", "ｮ": "ｮ", "ｯ": "ｯ",
+      "ｰ": "ー", "ｱ": "ア", "ｲ": "イ", "ｳ": "ウ", "ｴ": "エ", "ｵ": "オ", "ｶ": "カ", "ｷ": "キ", "ｸ": "ク", "ｹ": "ケ", "ｺ": "コ", "ｻ": "サ", "ｼ": "シ", "ｽ": "ス", "ｾ": "セ", "ｿ": "ソ",
+      "ﾀ": "タ", "ﾁ": "チ", "ﾂ": "ツ", "ﾃ": "テ", "ﾄ": "ト", "ﾅ": "ナ", "ﾆ": "ニ", "ﾇ": "ヌ", "ﾈ": "ネ", "ﾉ": "ノ", "ﾊ": "ハ", "ﾋ": "ヒ", "ﾌ": "フ", "ﾍ": "ヘ", "ﾎ": "ホ", "ﾏ": "マ",
+      "ﾐ": "ミ", "ﾑ": "ム", "ﾒ": "メ", "ﾓ": "モ", "ﾔ": "ヤ", "ﾕ": "ユ", "ﾖ": "ヨ", "ﾗ": "ラ", "ﾘ": "リ", "ﾙ": "ル", "ﾚ": "レ", "ﾛ": "ロ", "ﾜ": "ワ", "ﾝ": "ン", "ﾞ": "゛", "ﾟ": "゜",
+    };
+    // 正規表現   
+    var REG = new RegExp("(" + Object.keys(KANA_MAP).join("|") + ")", "g");
+
+    // 変換ボタンが押された
+    document.getElementById("btn").onclick = function() {
+      document.getElementById("zen").value
+        = jisKana(document.getElementById("han").value);
+    };
+
+    // 半角カナを全角カナに変換する
+    function jisKana(str) {
+      return str.replace(REG, function(match) {
+        return KANA_MAP[match];
+      });
+    }
+    </script>
+    <!-- ''' js end ''' -->
+  </body>
+</html>
+<!--
+参考
+https://qiita.com/hrdaya/items/291276a5a20971592216
+https://tools.m-bsys.com/data/charlist_ascii_kana.php
+-->
+
